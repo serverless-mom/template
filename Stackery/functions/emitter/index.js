@@ -26,11 +26,12 @@ module.exports = async message => {
 "MPNS" : "<?xml version=\"1.0\" encoding=\"utf-8\"?><wp:Notification xmlns:wp=\"WPNotification\"><wp:Tile><wp:Count>ENTER COUNT</wp:Count><wp:Title>edgar</wp:Title></wp:Tile></wp:Notification>", 
 "WNS" : "<badge version=\"1\" value=\"23\"/>"
 };
+snsMessage = "edgar"
    var sns = new AWS.SNS();
     var params = {
         Message: snsMessage, 
         Subject: "Test SNS From Lambda",
         TopicArn: ports[0][0].topicArn
     };
-    await sns.publish(params);
+    return await sns.publish(params);
 }

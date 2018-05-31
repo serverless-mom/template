@@ -2,7 +2,7 @@ var AWS = require("aws-sdk");
 
 
 module.exports = async message => {
-  console.dir(message);
+  console.dir(ports[0][0].topicArn);
   const ports = JSON.parse(process.env.STACKERY_PORTS)
 
 
@@ -26,17 +26,19 @@ module.exports = async message => {
     "MPNS": "<?xml version=\"1.0\" encoding=\"utf-8\"?><wp:Notification xmlns:wp=\"WPNotification\"><wp:Tile><wp:Count>ENTER COUNT</wp:Count><wp:Title>edgar</wp:Title></wp:Tile></wp:Notification>",
     "WNS": "<badge version=\"1\" value=\"23\"/>"
   };
-  snsMessage = "edgar"
+  newMessage = "edgar"
   var sns = new AWS.SNS();
   var params = {
-    Message: snsMessage,
+    Message: newMessage,
     Subject: "Test SNS From Lambda",
-    TopicArn: ports[0][0].topicArn
+    TopicArn: ports[0][0].topicArn,
+    MessageAttributes: {
+      DataType: 'String'
+    }
   };
   try {
     let returnVal = await sns.publish(params);
-    console.dir(returnVal)
-    return returnVal
+    return {}
   } catch (err) {
     console.dir(err)
     return (err)

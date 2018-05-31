@@ -6,7 +6,7 @@ module.exports = async message => {
     const ports = JSON.parse(process.env.STACKERY_PORTS)
 
 
-  let message = {
+  let snsMessage = {
 "default": "edgar", 
 "email": "edgar", 
 "sqs": "edgar", 
@@ -28,7 +28,7 @@ module.exports = async message => {
 };
    var sns = new AWS.SNS();
     var params = {
-        Message: message, 
+        Message: snsMessage, 
         Subject: "Test SNS From Lambda",
         TopicArn: ports[0][0].topicArn
     };

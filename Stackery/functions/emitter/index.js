@@ -2,8 +2,9 @@ var AWS = require("aws-sdk");
 
 
 module.exports = async message => {
-  console.dir(ports[0][0].topicArn);
   const ports = JSON.parse(process.env.STACKERY_PORTS)
+  console.dir(ports[0][0].topicArn);
+
 
 
   let snsMessage = {
